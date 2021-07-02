@@ -1,0 +1,17 @@
+{
+  "name": "quickbite",
+  "version": "1.0.0",
+  "description": "firebase-api",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tawanda Gutsa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase": "^8.7.0",
+    "nodemon": "^2.0.7"
+  }
+}
