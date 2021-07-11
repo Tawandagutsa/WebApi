@@ -107,15 +107,52 @@ app.post(`${api}/restaurant1/promotions/`, async (req,res) =>{
     
 })
 
-// app.get(`${api}/restaurant1/categories/:category`, async (req,res)=>{
 
-//     await database.ref('restaurant1/products').orderByChild("category").equalTo("drinks").on("value", snapshot =>{
-//         products = snapshot.val();
-//     });
-  
-//     res.send(products);
-// })
 
+app.get(`${api}/restaurant1/products/`, async (req,res)=>{
+
+    database.ref('restaurant1/products').get().then((prods)=>{
+        res.send(prods);
+
+    })
+    .catch((err)=>{
+        res.send({
+            success: false,
+            message: err
+    })
+});    
+})
+ 
+
+app.delete(`${api}/restaurant1/employees/:id`, async (req, res)=> {
+    
+    database.ref('restaurant1/employees').child(req.params.id).remove().then((employee)=>{
+        res.status(200).send({
+            success: true,
+            message: "User successfully deleted"
+        })
+    })
+    .catch((err)=>{
+        res.send({success: false,
+        message: err
+        });
+    })
+});
+
+app.delete(`${api}/restaurant1/products/:id`, async (req, res)=> {
+    
+    database.ref('restaurant1/products').child(req.params.id).remove().then((product)=>{
+        res.status(200).send({
+            success: true,
+            message: "Product successfully deleted"
+        })
+    })
+    .catch((err)=>{
+        res.send({success: false,
+        message: err
+        });
+    })
+});
 
 
 
