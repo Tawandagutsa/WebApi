@@ -51,7 +51,6 @@ app.post(`${api}/restaurant1/products/`, async (req,res) =>{
         description: req.body.description,
         price: req.body.price,
         imageUrl: req.body.imageUrl,
-        isFavorite: req.body.isFavorite,
         title: req.body.title,
         eTimeToPrepare: req.body.eTimeToPrepare,
         category: req.body.category,
