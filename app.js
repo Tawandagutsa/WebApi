@@ -38,6 +38,12 @@ app.options('*', cors());
 //environment variables 
 const api = process.env.API_URL;
 
+app.get(`/`, async (req,res)=>{
+
+    res.send("Hello World")
+    
+});
+
 
 
 app.post(`${api}/restaurant1/products/`, async (req,res) =>{
