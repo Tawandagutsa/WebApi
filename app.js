@@ -127,6 +127,20 @@ app.get(`${api}/restaurant1/products/`, async (req,res)=>{
     })
 });    
 })
+
+app.get(`${api}/restaurant1/employees/`, async (req,res)=>{
+
+    database.ref('restaurant1/employees').get().then((employees)=>{
+        res.send(employees);
+
+    })
+    .catch((err)=>{
+        res.send({
+            success: false,
+            message: err
+    })
+});    
+})
  
 
 app.delete(`${api}/restaurant1/employees/:id`, async (req, res)=> {
