@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv/config');
 const cors = require('cors');
+const productsRouter = require('./routes/products');
 
 
 
@@ -28,15 +29,16 @@ firebase.initializeApp(firebaseConfig);
 //database instance
 var database = firebase.database();
 
+const api = process.env.API_URL;
 
 //middleware 
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use(cors())
 app.options('*', cors());
+app.use(`${api}/restaurant1/products`, productsRouter)
 
 //environment variables 
-const api = process.env.API_URL;
 
 app.get(`/`, async (req,res)=>{
 
@@ -46,30 +48,7 @@ app.get(`/`, async (req,res)=>{
 
 
 
-app.post(`${api}/restaurant1/products/`, async (req,res) =>{
-    const product = {
-        description: req.body.description,
-        price: req.body.price,
-        imageUrl: req.body.imageUrl,
-        title: req.body.title,
-        eTimeToPrepare: req.body.eTimeToPrepare,
-        category: req.body.category,
-    }
 
-   database.ref('restaurant1/products').push(product).then((product)=>{
-        res.status(200).send({
-            success: true,
-            message: "Product successfullly created."
-        });
-
-    }).catch((error)=>{
-        res.send({
-            success: false,
-            message: error
-        })
-    })
-    
-})
 
 app.post(`${api}/restaurant1/employees/`, (req,res) =>{
     const employee = {
@@ -113,21 +92,6 @@ app.post(`${api}/restaurant1/promotions/`, async (req,res) =>{
 })
 
 
-
-app.get(`${api}/restaurant1/products/`, async (req,res)=>{
-
-    database.ref('restaurant1/products').get().then((prods)=>{
-        res.send(prods);
-
-    })
-    .catch((err)=>{
-        res.send({
-            success: false,
-            message: err
-    })
-});    
-})
-
 app.get(`${api}/restaurant1/employees/`, async (req,res)=>{
 
     database.ref('restaurant1/employees').get().then((employees)=>{
@@ -158,24 +122,11 @@ app.delete(`${api}/restaurant1/employees/:id`, async (req, res)=> {
     })
 });
 
-app.delete(`${api}/restaurant1/products/:id`, async (req, res)=> {
-    
-    database.ref('restaurant1/products').child(req.params.id).remove().then((product)=>{
-        res.status(200).send({
-            success: true,
-            message: "Product successfully deleted"
-        })
-    })
-    .catch((err)=>{
-        res.send({success: false,
-        message: err
-        });
-    })
-});
+
 
 
 
 app.listen(process.env.PORT || 5000, ()=>{
-    console.log("Server is running on http://localhost:3000")
+    console.log("Server is running on http://localhost:5000")
 })
 

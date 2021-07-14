@@ -4,7 +4,7 @@
   "description": "firebase-api",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tawanda Gutsa",
@@ -18,5 +18,14 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.9",
     "uuid": "^8.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tawandagutsa/WebApi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tawandagutsa/WebApi/issues"
+  },
+  "homepage": "https://github.com/Tawandagutsa/WebApi#readme"
 }
