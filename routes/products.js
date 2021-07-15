@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const firebase =  require('../config/firebase-config')
 
-router.post(`/products`, async (req,res) =>{
+var database = firebase.database();
+
+router.post(`/`, async (req,res) =>{
     const product = {
         description: req.body.description,
         price: req.body.price,
@@ -24,10 +27,9 @@ router.post(`/products`, async (req,res) =>{
         })
     })
     
-});
+})
 
-
-router.get(`/products`, async (req,res)=>{
+router.get(`/`, async (req,res)=>{
 
     database.ref('restaurant1/products').get().then((prods)=>{
         res.send(prods);
@@ -42,7 +44,7 @@ router.get(`/products`, async (req,res)=>{
 });
 
 
-router.delete(`/products/:id`, async (req, res)=> {
+router.delete(`/:id`, async (req, res)=> {
     
     database.ref('restaurant1/products').child(req.params.id).remove().then((product)=>{
         res.status(200).send({
