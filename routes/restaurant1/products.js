@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const firebase =  require('../config/firebase-config')
+const firebase =  require('../../config/firebase-config')
 
 var database = firebase.database();
 
-router.post(`/`, async (req,res) =>{
-    const product = {
+//Create new product
+router.post(`/create`, async (req,res) =>{
+    let product = {
         description: req.body.description,
+        title: req.body.title,
+        category: req.body.category,
+        eTimeToPrepare: req.body.eTimeToPrepare,
         price: req.body.price,
         imageUrl: req.body.imageUrl,
-        title: req.body.title,
-        eTimeToPrepare: req.body.eTimeToPrepare,
-        category: req.body.category,
-    }
+        quantity: req.body.quantity
+    };
 
    database.ref('restaurant1/products').push(product).then((product)=>{
         res.status(200).send({
@@ -24,11 +26,12 @@ router.post(`/`, async (req,res) =>{
         res.send({
             success: false,
             message: error
-        })
-    })
+        });
+    });
     
-})
+});
 
+//get all products
 router.get(`/`, async (req,res)=>{
 
     database.ref('restaurant1/products').get().then((prods)=>{
@@ -39,11 +42,12 @@ router.get(`/`, async (req,res)=>{
         res.send({
             success: false,
             message: err
-    })
-});    
+    });
+  });    
 });
 
 
+//delete product
 router.delete(`/:id`, async (req, res)=> {
     
     database.ref('restaurant1/products').child(req.params.id).remove().then((product)=>{
