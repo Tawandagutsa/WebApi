@@ -47,6 +47,28 @@ router.get(`/`, async (req,res)=>{
 });
 
 
+//get product category/filter
+router.get(`/categories/:category`, async (req,res)=>{
+    let category = [];
+    database.ref('restaurant1/products').get().then((prods)=>{
+        products = prods.val();
+        Object.keys(products).forEach(function(key){
+            if(products[key].category==req.params.category){
+                category.push(products[key]);
+            };
+          });
+        res.send(category);
+
+    })
+    .catch((err)=>{
+        res.send({
+            success: false,
+            message: err
+    });
+  });    
+});
+
+
 //delete product
 router.delete(`/:id`, async (req, res)=> {
     

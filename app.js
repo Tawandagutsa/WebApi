@@ -9,7 +9,10 @@ const productsRouter = require('./routes/restaurant1/products');
 const paymentRouter = require('./routes/restaurant1/payment');
 const employeeRouter = require('./routes/restaurant1/employees');
 const promotionRouter = require('./routes/restaurant1/promotions');
+const usersRouter = require('./routes/restaurant1/users');
+const reviewsRouter = require('./routes/restaurant1/reviews');
 const firebase = require('./config/firebase-config');
+
 
 //environment variables
 const api = process.env.API_URL;
@@ -26,7 +29,9 @@ app.options('*', cors());
 app.use(`${api}/restaurant1/products`, productsRouter);
 app.use(`${api}/restaurant1/employees`, employeeRouter);
 app.use(`${api}/restaurant1/promotions`, promotionRouter);
+app.use(`${api}/users`, usersRouter);
 app.use(`${api}/pay`, paymentRouter);
+app.use(`${api}/restaurant1/review`, reviewsRouter);
 
 
 app.get(`/`, async (req,res)=>{

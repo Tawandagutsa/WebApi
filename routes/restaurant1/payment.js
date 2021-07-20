@@ -16,13 +16,15 @@ router.post(`/ecocash`, async (req,res)=>{
     let transaction = {
         user: req.body.user,
         items: req.body.items,
-        amount: req.body.amount
+        amount: req.body.amount,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber
     }
-    let payment = paynow.createPayment("Invoice 37", "tawandagutsa@outlook.com");
+    let payment = paynow.createPayment("Invoice 37", transaction.email);
 
     payment.add("Title", transaction.amount);
 
-    paynow.sendMobile(payment, '0778939867', 'ecocash').then(async response => {
+    paynow.sendMobile(payment, transaction.phoneNumber, 'ecocash').then(async response => {
         if(response.success) {
             res.send(response);
             await sleep(30000);
@@ -42,13 +44,15 @@ router.post(`/onemoney`, async (req,res)=>{
     let transaction = {
         user: req.body.user,
         items: req.body.items,
-        amount: req.body.amount
+        amount: req.body.amount,
+        phoneNumber: req.body.phoneNumber,
+        email: req.body.email
     }
-    let payment = paynow.createPayment("Invoice 37", "tawandagutsa@outlook.com");
+    let payment = paynow.createPayment("Invoice 37", transaction.email);
 
     payment.add("Title", transaction.amount);
 
-    paynow.sendMobile(payment, '0778939867', 'onemoney').then(async response => {
+    paynow.sendMobile(payment, transaction.phoneNumber, 'onemoney').then(async response => {
      res.send(response);
      if(response.success) {
         res.send(response);
