@@ -10,7 +10,6 @@ router.post(`/create`, (req,res)=>{
         firstname: req.body.firstname,
         surname: req.body.surname,
         email: req.body.email,
-        address: req.body.address,
         phoneNumber: req.body.phoneNumber,
         role: "user",
     };
