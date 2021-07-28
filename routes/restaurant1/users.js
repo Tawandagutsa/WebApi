@@ -14,7 +14,7 @@ router.post(`/create`, (req,res)=>{
         role: "user",
     };
 
-    database.ref('/users').push(user).then((user)=>{
+    database.ref('/users').set(user).then((user)=>{
         res.status(200).send({
             success: true,
             message: "User successfully created"
