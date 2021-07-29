@@ -5,17 +5,16 @@ const firebase =  require('../../config/firebase-config')
 var database = firebase.database();
 
 //create user 
-router.post(`/create`, (req,res)=>{
+router.post(`/create/:uid`, (req,res)=>{
     let user = {
         firstname: req.body.firstname,
         surname: req.body.surname,
         email: req.body.email,
-        address: req.body.address,
         phoneNumber: req.body.phoneNumber,
         role: "user",
     };
 
-    database.ref('/users').push(user).then((user)=>{
+    database.ref(`/users/${req.params.uid}`).set(user).then((user)=>{
         res.status(200).send({
             success: true,
             message: "User successfully created"
