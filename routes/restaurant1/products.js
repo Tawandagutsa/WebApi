@@ -4,6 +4,19 @@ const firebase =  require('../../config/firebase-config')
 
 var database = firebase.database();
 
+function removeDuplicates(originalList,prop){
+    var newList = [];
+    var lookupObject = {};
+    for(var i in originalList){
+        lookupObject[originalList[i][prop]] = originalList[i];
+    }
+
+    for(i in lookupObject){
+        newList.push(lookupObject[i]);
+    }
+    return newList
+}
+
 //Create new product
 router.post(`/create`, async (req,res) =>{
     let product = {
@@ -70,6 +83,8 @@ router.get(`/categories/:category`, async (req,res)=>{
 });
 
 
+
+
 //get categories 
 router.get(`/categories/`, async (req,res)=>{
     let category = [];
@@ -83,6 +98,7 @@ router.get(`/categories/`, async (req,res)=>{
                  });
             };
           });
+        category = removeDuplicates(category,"category");
         res.send(category);
     })
     .catch((err)=>{
