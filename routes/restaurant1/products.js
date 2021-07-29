@@ -69,6 +69,30 @@ router.get(`/categories/:category`, async (req,res)=>{
 });
 
 
+//get categories 
+router.get(`/categories/`, async (req,res)=>{
+    let category = [];
+    database.ref('restaurant1/products').get().then((prods)=>{
+        products = prods.val();
+        Object.keys(products).forEach(function(key){
+            if(products[key].category!=null){
+                category.push(products[key].category);
+            };
+          });
+        res.send(category);
+    })
+    .catch((err)=>{
+        res.send({
+            success: false,
+            message: err
+    });
+  });    
+});
+
+
+
+
+
 //delete product
 router.delete(`/:id`, async (req, res)=> {
     
