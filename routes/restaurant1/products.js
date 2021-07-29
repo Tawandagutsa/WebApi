@@ -13,6 +13,7 @@ router.post(`/create`, async (req,res) =>{
         eTimeToPrepare: req.body.eTimeToPrepare,
         price: req.body.price,
         imageUrl: req.body.imageUrl,
+        imagePath: req.body.imagePath,
         quantity: req.body.quantity
     };
 
@@ -76,7 +77,10 @@ router.get(`/categories/`, async (req,res)=>{
         products = prods.val();
         Object.keys(products).forEach(function(key){
             if(products[key].category!=null){
-                category.push(products[key].category);
+                category.push({
+                  "category":  products[key].category,
+                  "imagePath": products[key].imagePath
+                 });
             };
           });
         res.send(category);
