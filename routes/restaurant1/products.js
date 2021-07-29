@@ -10,7 +10,6 @@ function removeDuplicates(originalList,prop){
     for(var i in originalList){
         lookupObject[originalList[i][prop]] = originalList[i];
     }
-
     for(i in lookupObject){
         newList.push(lookupObject[i]);
     }
