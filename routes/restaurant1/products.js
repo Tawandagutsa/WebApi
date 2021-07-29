@@ -5,13 +5,13 @@ const firebase =  require('../../config/firebase-config')
 var database = firebase.database();
 
 function removeDuplicates(originalList,prop){
-    var newList = [];
+    var newList = {};
     var lookupObject = {};
     for(var i in originalList){
         lookupObject[originalList[i][prop]] = originalList[i];
     }
     for(i in lookupObject){
-        newList.push(lookupObject[i]);
+        newList[i] = lookupObject[i];
     }
     return newList
 }
