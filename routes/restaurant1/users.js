@@ -8,7 +8,7 @@ var database = firebase.database();
 router.post(`/create/:uid`, (req,res)=>{
     let user = {
         firstname: req.body.firstname,
-        surname: req.body.surname,
+        lastname: req.body.lastname,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
         role: "user",
