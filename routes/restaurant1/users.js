@@ -14,7 +14,7 @@ router.post(`/create/:uid`, (req,res)=>{
         role: "user",
     };
 
-    database.ref(`/users/${req.params.uid}`).set(user).then((user)=>{
+    database.ref(`/users/${req.params.uid}/details`).set(user).then((user)=>{
         res.status(200).send({
             success: true,
             message: "User successfully created"
@@ -30,7 +30,7 @@ router.post(`/create/:uid`, (req,res)=>{
 });
 
 
-//get all employees
+//get all users
 router.get(`/`, async (req,res)=>{
 
     database.ref('/users').get().then((users)=>{
